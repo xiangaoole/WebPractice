@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Simple setInterval clock</title>
+    <style>
+      p {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="clock"></p>
+    <button onclick="startClock()" class="start_btn">Start</button>
+    <button onclick="stopClock()" class="stop_btn">Stop</button>
+    <button onclick="resetClock()" class="reset_btn">Reset</button>
+    <script>
+      function displayTime() {
+        let time = Date.now() - startTime;
+        duration = lastDuration + Math.round(time / 1000);
+        updateClock();
+      }
+
+      function updateBtnState() {
+        startBtn.disabled = isStarted;
+        stopBtn.disabled = !isStarted;
+        resetBtn.disabled = !isStarted && duration === 0;
+      }
+
+      function startClock() {
+        isStarted = true;
+        startTime = Date.now();
+        createClock = setInterval(displayTime, 1000);
+
+        updateBtnState();
+      }
+
+      function stopClock() {
+        isStarted = false;
+        lastDuration = duration;
+
+        updateBtnState();
+        clearInterval(createClock);
+      }
+
+      function resetClock() {
+        isStarted = false;
+        duration = lastDuration = 0;
+
+        updateBtnState();
+        clearInterval(createClock);
+        updateClock();
+      }
+
+      function updateClock() {
+        displayPara.textContent = formatToClock(duration);
+      }
+
+      function formatToClock(time) {
+        let hour = Math.floor(time / 3600);
+        let minute = Math.floor((time % 3600) / 60);
+        let second = Math.round(time % 60);
+        return `${zeroPad(hour)}:${zeroPad(minute)}:${zeroPad(second)}`;
+      }
+
+      const zeroPad = (num) => String(num).padStart(2, '0');
+
+      // elements
+      const startBtn = document.querySelector('.start_btn');
+      const stopBtn = document.querySelector('.stop_btn');
+      const resetBtn = document.querySelector('.reset_btn');
+      const displayPara = document.querySelector('.clock');
+
+      let startTime; // when press start
+      let duration = 0, // the duration currently shown
+        lastDuration = 0; // the duration stored when stop pressed
+      let createClock; // interval handle
+      let isStarted = false;
+      updateClock();
+      updateBtnState();
+    </script>
+  </body>
+</html>

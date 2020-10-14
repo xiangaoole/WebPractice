@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>promise chain</title>
+  </head>
+  <body>
+    <p>this is a demo page for fetch resources using promise chain</p>
+
+    <script>
+      function fetchAndDecode(url, type) {
+        return fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            } else {
+              if (type === 'blob') {
+                return response.blob();
+              } else if (type === 'text') {
+                return response.text();
+              }
+            }
+          })
+          .catch((e) => {
+            console.log(
+              'There has been a problem with your fetch operation: ' + e.message
+            );
+          })
+          .finally(() => {
+            console.log(`fetch attempt for "${url}" finished.`);
+          });
+      }
+
+      let coffee = fetchAndDecode('res/coffee.jpg', 'blob');
+      let tea = fetchAndDecode('res/tea.jpg', 'blob');
+      let description = fetchAndDecode('res/description.txt', 'text');
+      Promise.all([coffee, tea, description])
+        .then((values) => {
+          const objectURL1 = URL.createObjectURL(values[0]);
+          const objectURL2 = URL.createObjectURL(values[1]);
+          const descText = values[2];
+
+          const image1 = document.createElement('img');
+          const image2 = document.createElement('img');
+          const para = document.createElement('p');
+          image1.src = objectURL1;
+          image2.src = objectURL2;
+          para.textContent = descText;
+          document.body.appendChild(image1);
+          document.body.appendChild(image2);
+          document.body.appendChild(para);
+        })
+        .catch((e) => {
+          console.log(
+            'There has been a problem with your fetch operation: ' + e.message
+          );
+        });
+    </script>
+  </body>
+</html>

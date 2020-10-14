@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>async-await</title>
+  </head>
+  <body>
+    <p>this is a demo page for fetch resources using async-await</p>
+
+    <script>
+      async function fetchAndDecode(url, type) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          } else {
+            if (type === 'blob') {
+              return response.blob();
+            } else if (type === 'text') {
+              return response.text();
+            }
+          }
+        } catch (e) {
+          console.log(
+            'There has been a problem with your fetch operation: ' + e.message
+          );
+        } finally {
+          console.log(`fetch attempt for "${url}" finished.`);
+        }
+      }
+
+      async function displayContent() {
+        let coffee = fetchAndDecode('res/coffee.jpg', 'blob');
+        let tea = fetchAndDecode('res/tea.jpg', 'blob');
+        let description = fetchAndDecode('res/description.txt', 'text');
+
+        // wait for all promises fulfilled
+        let values = await Promise.all([coffee, tea, description]);
+
+        const objectURL1 = URL.createObjectURL(values[0]);
+        const objectURL2 = URL.createObjectURL(values[1]);
+        const descText = values[2];
+
+        // add element to <body>
+        const image1 = document.createElement('img');
+        const image2 = document.createElement('img');
+        const para = document.createElement('p');
+        image1.src = objectURL1;
+        image2.src = objectURL2;
+        para.textContent = descText;
+        document.body.appendChild(image1);
+        document.body.appendChild(image2);
+        document.body.appendChild(para);
+      }
+
+      displayContent().catch((e) => {
+        console.log(
+          'There has been a problem with your fetch operation: ' + e.message
+        );
+      });
+    </script>
+  </body>
+</html>
