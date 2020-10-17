@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>html practice on broswer</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+    .preview {
+      min-height: 450px;
+    }
+    .box {
+      border: 5px solid #000;
+      width: 400px;
+      height: 200px;
+    }
+    </style>
+
+    <style class="editable">
+      img {
+
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <p>This is a html and css editor working as html.</p>
+    <p>Created by <a href="https://github.com/mdn/css-examples/blob/master/learn/tasks/images/object-fit.html">MDN</a>, modified by <a href="https://github.com/xiangaoole">Harold Gao</a>.</p>
+    <hr>
+    <p>preview:</p>
+    <section class="preview">
+
+      <div class="box">
+        <img src="balloons.jpg" alt="balloons">
+      </div>
+    </section>
+
+    <p>css:</p>
+    <textarea class="playable playable-css" style="height: 120px;">
+img {
+ 
+}
+    </textarea>
+
+    <p>html body content:</p>
+    <textarea class="playable playable-html" style="height: 140px;">
+
+<div class="box">
+  <img src="balloons.jpg" alt="balloons">
+</div>
+    </textarea>
+
+    <div class="playable-buttons">
+      <input id="reset" type="button" value="Reset" />
+    </div>
+  </body>
+  <script src="../playable.js"></script>
+</html>
