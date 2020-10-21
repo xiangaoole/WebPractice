@@ -1,52 +1,125 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
 
-    <title>Number guessing game</title>
+<head>
+  <meta charset="utf-8">
 
-    <style>
-      html {
-        font-family: sans-serif;
+  <title>Number guessing game</title>
+
+  <style>
+    html {
+      font-family: sans-serif;
+    }
+
+    body {
+      width: 50%;
+      max-width: 800px;
+      min-width: 480px;
+      margin: 0 auto;
+    }
+
+    .lastResult {
+      color: white;
+      padding: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Number guessing game</h1>
+
+  <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if
+    your guess was too high or too low.</p>
+
+  <div class="form">
+    <label for="guessField">Enter a guess: </label>
+    <input type="text" id="guessField" class="guessField">
+    <input type="submit" value="Submit guess" class="guessSubmit">
+  </div>
+
+  <div class="resultParas">
+    <p class="guesses"></p>
+    <p class="lastResult"></p>
+    <p class="lowOrHi"></p>
+  </div>
+
+  <script>
+
+    // Your JavaScript goes here
+    const GUESS_MAX_COUNT = 10;
+
+    const guesses = document.querySelector(".guesses");
+    const lastResult = document.querySelector(".lastResult");
+    const lowOrHi = document.querySelector(".lowOrHi");
+    const guessSubmit = document.querySelector(".guessSubmit");
+    const guessField = document.querySelector(".guessField");
+
+    let randomNumber = Math.floor(100 * Math.random()) + 1;
+    let guessCount = 1;
+    let resetButton;
+
+    function checkGuess() {
+      const guess = Number(guessField.value);
+      if (guessCount === 1) {
+        guesses.textContent = "Previous guesses:"
+      }
+      guesses.textContent += ` ${guess}`;
+
+      if (guess === randomNumber) {
+        lastResult.textContent = "Congratulations! Guess right!"
+        lastResult.style.backgroundColor = "green";
+        lowOrHi.textContent = "";
+        gameOver();
+      } else if (guessCount === GUESS_MAX_COUNT) {
+        lastResult.textContent = "!!!GAME OVER!!!";
+        lowOrHi.textContent = "";
+        gameOver();
+      } else {
+        lastResult.textContent = "Wrong!";
+        lastResult.style.backgroundColor = "red";
+        if (guess < randomNumber) {
+          lowOrHi.textContent = "Last guess was too LOW!";
+        } else {
+          lowOrHi.textContent = "Last guess was too HIGH!";
+        }
       }
 
-      body {
-        width: 50%;
-        max-width: 800px;
-        min-width: 480px;
-        margin: 0 auto;
-      }
+      guessCount++;
+      guessField.value = "";
+      guessField.focus();
+    }
+    guessSubmit.addEventListener("click", checkGuess);
 
-      .lastResult {
-        color: white;
-        padding: 3px;
-      }
-    </style>
-  </head>
+    function gameOver() {
+      guessField.disabled = true;
+      guessSubmit.disabled = true;
 
-  <body>
-    <h1>Number guessing game</h1>
+      resetButton = document.createElement("button");
+      resetButton.textContent = "Start new game";
+      document.body.appendChild(resetButton);
+      resetButton.addEventListener("click", resetGame);
+    }
 
-    <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low.</p>
+    function resetGame() {
+      // reset input
+      guessField.disabled = false;
+      guessSubmit.disabled = false;
+      guessField.value = "";
+      guessField.focus();
 
-    <div class="form">
-      <label for="guessField">Enter a guess: </label>
-      <input type="text" id="guessField" class="guessField">
-      <input type="submit" value="Submit guess" class="guessSubmit">
-    </div>
+      // reset last guesses, last result
+      guesses.textContent = "";
+      lastResult.textContent = "";
 
-    <div class="resultParas">
-      <p class="guesses"></p>
-      <p class="lastResult"></p>
-      <p class="lowOrHi"></p>
-    </div>
+      lastResult.style.backgroundColor = "white";
 
-    <script>
+      resetButton.parentNode.removeChild(resetButton);
+      randomNumber = Math.floor(100 * Math.random()) + 1;
+      guessCount = 1;
+    }
 
-      // Your JavaScript goes here
-gues       
 
-godu boop
-    </script>
-  </body>
+  </script>
+</body>
+
 </html>
