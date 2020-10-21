@@ -15,13 +15,12 @@
     }
     </style>
 
-    <style class="editable">
+    <style class="editable-css">
 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
     </style>
   </head>
 
@@ -48,6 +47,13 @@ img {
 <div class="box">
   <img src="balloons.jpg" alt="balloons">
 </div>
+    </textarea>
+
+    <textarea class="playable playable-js" style="height: 400px;">
+// add your javascript here
+let p = document.createElement("p");
+p.textContent = "This is demo."
+document.querySelector(".preview").appendChild(p);
     </textarea>
 
     <div class="playable-buttons">
