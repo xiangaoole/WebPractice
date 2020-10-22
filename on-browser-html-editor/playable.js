@@ -1,5 +1,6 @@
 var section = document.querySelector("section");
 var editableCSS = document.querySelector(".editable-css");
+var editableJS = document.querySelector(".editable-js");
 var textareaHTML = document.querySelector(".playable-html");
 var textareaCSS = document.querySelector(".playable-css");
 var textareaJS = document.querySelector(".playable-js");
@@ -12,8 +13,9 @@ function fillCode() {
   console.log("fillCode: ");
   editableCSS.innerHTML = textareaCSS.value;
   section.innerHTML = textareaHTML.value;
+  editableJS.textContent = textareaJS.value;
   try {
-    eval(textareaJS.textContent);
+    eval(editableJS.textContent);
   } catch (e) {
     section.innerHTML = " ";
     let para = document.createElement("p");

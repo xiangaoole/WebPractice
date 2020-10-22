@@ -31,15 +31,15 @@ body {
   }
 
   .playable-css {
-    height: 80px;
+    min-height: 80px;
   }
 
   .playable-js {
-    height: 160px;
+    min-height: 160px;
   }
 
   .playable-html {
-    height: 160px;
+    min-height: 160px;
   }
 
   .playable-buttons {

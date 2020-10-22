@@ -1,64 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>On-broswer html&css editor</title>
-    <link rel="stylesheet" href="../styles.css" />
-    <style>
-.preview {
-  min-height: 450px;
-}
-    .box {
-      border: 5px solid #000;
-      width: 400px;
-      height: 200px;
+
+<head>
+  <meta charset="utf-8" />
+  <title>On-browser html&css editor</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .container {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 2fr 1fr 1fr auto;
+      grid-template-areas:
+        "html preview"
+        "css preview"
+        "js preview"
+        "reset preview";
     }
-    </style>
 
-    <style class="editable-css">
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    .preview {
+      overflow: auto;
+      min-height: 450px;
+      grid-area: preview;
+    }
+
+    .playable-html {
+      grid-area: html;
+    }
+
+    .playable-css {
+      grid-area: css;
+    }
+
+    .playable-js {
+      grid-area: js;
+    }
+
+    .playable-buttons {
+      grid-area: reset;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+          "html"
+          "css"
+          "js"
+          "reset"
+          "preview";
+      }
+    }
+  </style>
+
+  <style class="editable-css"> </style>
+</head>
+
+<body class="container">
+  <section class="preview"></section>
+
+  <textarea class="playable playable-css">
+/* Add your css here */
+div.sticky {
+  color: black;  
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #4CAF50;
 }
-    </style>
-  </head>
+</textarea>
 
-  <body>
-    <p>preview:</p>
-    <section class="preview">
-
-      <div class="box">
-        <img src="balloons.jpg" alt="balloons">
-      </div>
-    </section>
-
-    <p>css:</p>
-    <textarea class="playable playable-css" style="height: 120px;">
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-    </textarea>
-
-    <p>html body content:</p>
-    <textarea class="playable playable-html" style="height: 140px;">
-<div class="box">
-  <img src="balloons.jpg" alt="balloons">
+  <textarea class="playable playable-html">
+<!-- Add your html here -->
+<div class="sticky">
+  <p>I am green border and background!</p>
 </div>
-    </textarea>
+</textarea>
 
-    <textarea class="playable playable-js" style="height: 400px;">
+  <textarea class="playable playable-js">
 // add your javascript here
 let p = document.createElement("p");
-p.textContent = "This is demo."
-document.querySelector(".preview").appendChild(p);
-    </textarea>
+p.textContent = "This is js demo."
+document.querySelector("div.sticky").appendChild(p);
+</textarea>
 
-    <div class="playable-buttons">
-      <input id="reset" type="button" value="Reset" />
-    </div>
-  </body>
-  <script src="../playable.js"></script>
+  <div class="playable-buttons">
+    <input id="reset" type="button" value="Reset" />
+  </div>
+</body>
+<script class="editable-js"></script>
+<script src="../playable.js"></script>
+
 </html>
