@@ -1,10 +1,9 @@
 # Harold's WebPractice
 
-This is Harold's practice on web technology. 
+Practice on web technology. Inspired by <a href="https://developer.mozilla.org/en-US/docs/Learn/Front-end_web_developer">MDN's Front-end web developer</a>
 
-> You can visit this repo in <a href="https://xiangaoole.github.io/WebPractice/">this repository's Git Page </a>.
+## Index
 
-These are tutorials I recommend for web technology:
-
-- <a href="https://developer.mozilla.org/en-US/docs/Learn/Front-end_web_developer">MDN's Front-end web developer</a>
+Including:
+- On-browser-html-editor: visit [the web page](https://www.haroldgao.com/WebPractice/on-browser-html-editor/), or view the [source code](https://github.com/xiangaoole/WebPractice/tree/main/on-browser-html-editor/)
 
